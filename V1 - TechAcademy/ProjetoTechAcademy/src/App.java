@@ -39,6 +39,7 @@ public class App {
         System.out.println("--- DELETE ---");
         for(Colaborador item : dao.browse()) {
             item.exibir();
-        }
-       }
+        } 
+    }
+
 }
