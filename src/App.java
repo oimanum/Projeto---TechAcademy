@@ -10,7 +10,7 @@ public class App {
             item.exibir();
         }
 
-        Colaborador colab = new Colaborador(106, "Lula", "133333333300", "Presidente da República");
+        Colaborador colab = new Colaborador(106, "Camila Rocha", "13333333300", "Analista de Sistemas");
         Colaborador novo = dao.Add(colab);
 
         System.out.println();
@@ -20,9 +20,9 @@ public class App {
             item.exibir();
         } 
         System.out.println();
-        System.out.println(novo.getNome() + " passou cargo de " + novo.getCargo() + " para Flavio");
+        System.out.println(novo.getNome() + " passou cargo de " + novo.getCargo() + " para Bruno Lima");
         System.out.println();
-        novo.setNome("Flavio");
+        novo.setNome("Bruno Lima");
         novo.setCpf("22222222200");
         dao.Edit(novo);
         System.out.println();
