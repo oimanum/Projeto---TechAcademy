@@ -1,18 +1,19 @@
 # 🎓 TechAcademy
 
-Sistema acadêmico em **Java**, executado no terminal, feito para praticar **orientação a objetos** de ponta a ponta: hierarquia de classes, classes abstratas, generics e o padrão **DAO** com um banco de dados simulado em memória.
+Sistema acadêmico em **Java**, executado no terminal, feito para praticar **orientação a objetos** de ponta a ponta: hierarquia de classes, classes abstratas, generics, o padrão **DAO** com um banco de dados simulado em memória e uma arquitetura em **camadas** (Visão → Serviço → DAO → dados).
 
-> 🚧 **Status: em desenvolvimento.** O CRUD de colaboradores está funcionando e demonstrado no `App`. Os demais módulos estão descritos em [Limitações e próximos passos](#-limitações-e-próximos-passos).
+> 🚧 **Status: em desenvolvimento (V1.1).** Já existe um menu interativo de colaboradores com as opções *Listar* e *Pesquisar por código*. As demais opções do menu e os outros módulos estão descritos em [Limitações e próximos passos](#-limitações-e-próximos-passos).
 
 ## ✨ O que o projeto demonstra
 
 | Conceito | Onde aparece |
 | --- | --- |
 | **Herança** | `AbsIdentificador` → `AbsPessoa` → `Aluno`, `Professor`, `Colaborador`; e `Professor` → `ProfessorEfetivo` |
-| **Classes e métodos abstratos** | `AbsPessoa.exibir()`, `AbsGenericDAO<T>`, `AbsGenericFakeDB<T>` |
+| **Classes e métodos abstratos** | `AbsPessoa.exibir()`, `AbsGenericDAO<T>`, `AbsGenericFakeDB<T>`, `AbsGenericSrv<T>`, `AbsMenu`, `AbsVisao` |
 | **Polimorfismo** | Cada pessoa sobrescreve `exibir()` com os seus próprios campos |
-| **Generics** | `AbsGenericDAO<T>` e `AbsGenericFakeDB<T>` servem a qualquer entidade |
-| **Padrão DAO** | Acesso aos dados isolado em `DAO/`, longe do `App` |
+| **Generics** | DAO, serviço e banco simulado são genéricos e servem a qualquer entidade |
+| **Arquitetura em camadas** | `Visao/` (menus) → `Servico/` (regras) → `DAO/` (acesso a dados) → `FakeDB/` (dados em memória) |
+| **Padrão DAO** | Acesso aos dados isolado em `DAO/`, longe da interface |
 | **Encapsulamento** | Atributos protegidos/privados com getters e setters |
 | **Regra de negócio** | `Professor.calcularBonificacao()` (10% do salário) |
 
@@ -48,23 +49,25 @@ classDiagram
     }
 ```
 
-O acesso aos dados segue duas camadas, ambas genéricas:
+O fluxo de uma operação atravessa quatro camadas, e cada uma só conhece a seguinte:
 
 ```
-App  →  DAO (browse, Read, Add, Edit, Delete)  →  FakeDB (lista em memória)
+Visao (ColaboradorMenu)  →  Servico (ColaboradorSrv)  →  DAO (ColaboradorDAO)  →  FakeDB (lista em memória)
 ```
 
-Os métodos seguem o padrão **BREAD** (Browse, Read, Edit, Add, Delete) em vez do CRUD tradicional.
+Os métodos de acesso seguem o padrão **BREAD** (Browse, Read, Edit, Add, Delete) em vez do CRUD tradicional. No serviço, os mesmos conceitos aparecem com nomes de negócio: `Listar`, `Buscar`, `Incluir`, `Alterar` e `Excluir`.
 
 ## 📁 Estrutura
 
 ```
 src/
-├── App.java            # demonstração do CRUD de colaboradores
+├── App.java            # demonstração direta do DAO de colaboradores (sem menu)
 ├── MenuAluno.java      # cadastro de aluno pelo terminal
 ├── Dominio/            # entidades (AbsIdentificador, AbsPessoa, Aluno, Professor, ...)
-├── DAO/                # AbsGenericDAO<T> e DAOs concretos
-└── FakeDB/             # bancos simulados em memória, com dados de exemplo
+├── DAO/                # AbsGenericDAO<T> e ColaboradorDAO
+├── FakeDB/             # bancos simulados em memória, com dados de exemplo
+├── Servico/            # AbsGenericSrv<T> e ColaboradorSrv
+└── Visao/              # App (ponto de entrada), AbsMenu, ColaboradorMenu e classes de teste
 ```
 
 ## ▶️ Como executar
@@ -75,48 +78,62 @@ Requisito: **Java 21 ou superior** (o código usa `ArrayList.getLast()`).
 git clone https://github.com/oimanum/Projeto---TechAcademy.git
 cd Projeto---TechAcademy
 
+javac -encoding UTF-8 -d bin -sourcepath src src/Visao/App.java
+java -cp bin Visao.App
+```
+
+Funciona igual no Linux, macOS e Windows. Também dá para abrir a pasta no VS Code com o *Extension Pack for Java* e executar o `Visao/App.java`.
+
+Para ver a demonstração do DAO sem menu (adiciona, edita e apaga um colaborador), use o `App` da raiz:
+
+```bash
 javac -encoding UTF-8 -d bin -sourcepath src src/App.java
 java -cp bin App
 ```
 
-Funciona igual no Linux, macOS e Windows. Também dá para abrir a pasta no VS Code com o *Extension Pack for Java* e executar o `App.java`.
-
 ## 🖥️ Exemplo de saída
 
-O `App` lista os colaboradores, adiciona um (o DAO gera o próximo código), edita, apaga e lista de novo a cada etapa:
+O menu de colaboradores lista os registros e pesquisa por código (aqui, a opção 1 e depois a opção 2 com o código 103):
 
 ```text
---- ADD ---
+---- Menu [COLABORADOR] ----
+1 - Listar
+2 - Pesquisar por Código
+3 - Incluir
+4 - Alterar
+5 - Excluir
+9 - Voltar
+Selecione uma opção:
+
+***** LISTAR COLABORADOR *****
+Código: 101
+Nome: Matheus Souza
+CPF: 1234567890
+Cargo: Estagiario
 ...
-Código: 106
-Nome: Camila Rocha
-CPF: 13333333300
-Cargo: Analista de Sistemas
 
-Camila Rocha passou cargo de Analista de Sistemas para Bruno Lima
-
---- EDIT ---
-...
-Código: 106
-Nome: Bruno Lima
-CPF: 22222222200
-Cargo: Analista de Sistemas
-
-Registro de código 106 apagado com sucesso!
+***** PESQUISAR COLABORADOR POR CÓDIGO*****
+Informe um código: 103
+Código: 103
+Nome: Paulo Santos
+CPF: 1234567892
+Cargo: Jovem Aprendiz
 ```
 
 ## 🔧 Limitações e próximos passos
 
 O projeto está em evolução. O que ainda falta:
 
-- [ ] Criar o `AlunoDAO` (o `AlunoFakeDB` já existe)
-- [ ] Ligar o `MenuAluno` ao `App` para ter um menu interativo
+- [ ] Implementar no menu as opções **Incluir**, **Alterar** e **Excluir** (a camada de serviço e o DAO já oferecem as operações)
+- [ ] Tratar a pesquisa por um código que não existe (hoje o menu não verifica o resultado vazio)
+- [ ] Criar o `AlunoDAO` (o `AlunoFakeDB` já existe) e menus para aluno e professor
+- [ ] Readaptar `ProfessorDAO` e `ProfessorEfetivoDAO`, da V1, ao método `Browse()`
 - [ ] Persistir os dados em um banco de verdade (hoje tudo vive em memória e some ao encerrar)
-- [ ] Adicionar testes automatizados dos DAOs
+- [ ] Adicionar testes automatizados dos DAOs e dos serviços
 
 ## 🛠️ Tecnologias
 
-`Java 21` · `POO` · `Generics` · `Padrão DAO`
+`Java 21` · `POO` · `Generics` · `Padrão DAO` · `Arquitetura em camadas`
 
 ## 👩‍💻 Autora
 
