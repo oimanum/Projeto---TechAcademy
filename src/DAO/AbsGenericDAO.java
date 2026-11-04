@@ -7,14 +7,15 @@ import FakeDB.AbsGenericFakeDB;
 public abstract class AbsGenericDAO<T> {
 
     protected AbsGenericFakeDB<T> repositorio;
-    //Usando BREAD ao invés de CRUD:
-    public ArrayList<T> browse() {
+
+    // Usando BREAD ao invés de CRUD:
+    public ArrayList<T> Browse() {
         return this.repositorio.getDados();
     }
 
     public abstract T Read(int codigo);
 
-    public abstract T Edit(T alterado); //Alterado é quem eu quero salvar
+    public abstract T Edit(T alterado); // Alterado é quem eu quero salvar
 
     public abstract T Add(T novo);
 

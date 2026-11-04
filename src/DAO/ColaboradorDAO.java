@@ -10,13 +10,13 @@ public class ColaboradorDAO extends AbsGenericDAO<Colaborador> {
     private ArrayList<Colaborador> tabela;
 
     @Override
-    public ArrayList<Colaborador> browse() {
+    public ArrayList<Colaborador> Browse() {
         return this.repositorio.getDados();
     }
 
     @Override
-    public Colaborador Read(int codigo) {        
-        for ( Colaborador item :this.tabela ) {
+    public Colaborador Read(int codigo) {
+        for (Colaborador item : this.tabela) {
             if (item.getCodigo() == codigo) {
                 return item;
             }
@@ -49,19 +49,22 @@ public class ColaboradorDAO extends AbsGenericDAO<Colaborador> {
         int codigoProcurado = apagado.getCodigo();
         if (this.Read(codigoProcurado) != null) {
             this.tabela.remove(apagado);
-            return apagado; 
-            /* remove da tabela mas ainda devolve o objeto apagado para que o usuário saiba o que foi apagado,
-             só seria completamente apagado se o retorno fosse null, mas nesse caso o usuário não saberia o que foi apagado, 
-             então é melhor devolver o objeto apagado mesmo. */
+            return apagado;
+            /*
+             * remove da tabela mas ainda devolve o objeto apagado para que o usuário saiba
+             * o que foi apagado,
+             * só seria completamente apagado se o retorno fosse null, mas nesse caso o
+             * usuário não saberia o que foi apagado,
+             * então é melhor devolver o objeto apagado mesmo.
+             */
         }
         return null;
-        
-    }
 
+    }
 
     public ColaboradorDAO() {
         this.repositorio = new ColaboradorFakeDB();
         this.tabela = this.repositorio.getDados();
     }
-    
+
 }
