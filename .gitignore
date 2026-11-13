@@ -1,0 +1,9 @@
+# Arquivos compilados
+bin/
+out/
+*.class
+
+# Editores e sistema
+.idea/
+*.iml
+.DS_Store
