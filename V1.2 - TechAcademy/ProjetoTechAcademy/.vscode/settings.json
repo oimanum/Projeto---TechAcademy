@@ -1,0 +1,21 @@
+{
+  "java.project.sourcePaths": [
+    "src"
+  ],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar"
+  ],
+  "java.debug.settings.vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -Dstdin.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8",
+  "terminal.integrated.defaultProfile.windows": "PowerShell UTF8",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell UTF8": {
+      "source": "PowerShell",
+      "args": [
+        "-NoExit",
+        "-Command",
+        "chcp 65001 | Out-Null"
+      ]
+    }
+  }
+}

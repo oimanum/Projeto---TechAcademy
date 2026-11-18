@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Menu Visitante (Visao.App)",
+      "request": "launch",
+      "mainClass": "Visao.App",
+      "console": "integratedTerminal",
+      "vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8"
+    },
+    {
+      "type": "java",
+      "name": "Teste Egresso",
+      "request": "launch",
+      "mainClass": "Teste.EgressoTest",
+      "console": "integratedTerminal",
+      "vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8"
+    },
+    {
+      "type": "java",
+      "name": "Teste Visitante",
+      "request": "launch",
+      "mainClass": "Teste.VisitanteTest",
+      "console": "integratedTerminal",
+      "vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8"
+    },
+    {
+      "type": "java",
+      "name": "Teste Estagiario",
+      "request": "launch",
+      "mainClass": "Teste.EstagiarioTest",
+      "console": "integratedTerminal",
+      "vmArgs": "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstdin.encoding=UTF-8"
+    }
+  ]
+}

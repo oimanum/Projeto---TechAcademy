@@ -1,0 +1,93 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Rodar Menu Visitante",
+      "type": "shell",
+      "command": "chcp 65001 | Out-Null; New-Item -ItemType Directory -Force out | Out-Null; javac -encoding UTF-8 -d out -sourcepath src src/Visao/App.java; if ($?) { java '-Dfile.encoding=UTF-8' '-Dstdout.encoding=UTF-8' '-Dstdin.encoding=UTF-8' -cp out Visao.App }",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command"
+          ]
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Rodar Teste Egresso",
+      "type": "shell",
+      "command": "chcp 65001 | Out-Null; New-Item -ItemType Directory -Force out | Out-Null; javac -encoding UTF-8 -d out -sourcepath src src/Teste/EgressoTest.java; if ($?) { java '-Dfile.encoding=UTF-8' '-Dstdout.encoding=UTF-8' '-Dstdin.encoding=UTF-8' -cp out Teste.EgressoTest }",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command"
+          ]
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Rodar Teste Visitante",
+      "type": "shell",
+      "command": "chcp 65001 | Out-Null; New-Item -ItemType Directory -Force out | Out-Null; javac -encoding UTF-8 -d out -sourcepath src src/Teste/VisitanteTest.java; if ($?) { java '-Dfile.encoding=UTF-8' '-Dstdout.encoding=UTF-8' '-Dstdin.encoding=UTF-8' -cp out Teste.VisitanteTest }",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command"
+          ]
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Rodar Teste Estagiario",
+      "type": "shell",
+      "command": "chcp 65001 | Out-Null; New-Item -ItemType Directory -Force out | Out-Null; javac -encoding UTF-8 -d out -sourcepath src src/Teste/EstagiarioTest.java; if ($?) { java '-Dfile.encoding=UTF-8' '-Dstdout.encoding=UTF-8' '-Dstdin.encoding=UTF-8' -cp out Teste.EstagiarioTest }",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": [
+            "-NoProfile",
+            "-Command"
+          ]
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
