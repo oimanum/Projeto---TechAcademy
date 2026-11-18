@@ -10,6 +10,11 @@ public class EstagiarioDAO extends AbsGenericDAO<Estagiario> {
     private ArrayList<Estagiario> tabela;
 
     @Override
+    public ArrayList<Estagiario> Browse() {
+        return this.tabela;
+    }
+
+    @Override
     public Estagiario Read(int codigo) {
         for (Estagiario item : this.tabela) {
             if (item.getCodigo() == codigo) {

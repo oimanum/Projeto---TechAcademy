@@ -10,6 +10,11 @@ public class EgressoDAO extends AbsGenericDAO<Egresso> {
     private ArrayList<Egresso> tabela;
 
     @Override
+    public ArrayList<Egresso> Browse() {
+        return this.tabela;
+    }
+
+    @Override
     public Egresso Read(int codigo) {
         for (Egresso item : this.tabela) {
             if (item.getCodigo() == codigo) {

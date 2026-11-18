@@ -10,6 +10,11 @@ public class VisitanteDAO extends AbsGenericDAO<Visitante> {
     private ArrayList<Visitante> tabela;
 
     @Override
+    public ArrayList<Visitante> Browse() {
+        return this.tabela;
+    }
+
+    @Override
     public Visitante Read(int codigo) {
         for (Visitante item : this.tabela) {
             if (item.getCodigo() == codigo) {
